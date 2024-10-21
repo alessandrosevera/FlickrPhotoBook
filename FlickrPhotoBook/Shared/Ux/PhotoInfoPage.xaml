@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls" 
+    ios:Page.UseSafeArea="True"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:controls="clr-namespace:FlickrPhotoBook.Ux.Controls"
+    x:Class="FlickrPhotoBook.Ux.PhotoInfoPage"
+    BackgroundColor="{StaticResource Black}">
+    <ContentPage.Content>
+
+        <AbsoluteLayout x:Name="AbsoluteContent" HorizontalOptions="Fill" VerticalOptions="Fill">
+
+            <ffimageloading:CachedImage LoadingPlaceholder="transparent.png" ErrorPlaceholder="error_transparent.png"
+                                        Source="{Binding Info.CompositeUrl}" Aspect="AspectFit"
+                                        AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"></ffimageloading:CachedImage>
+
+            <Border AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, -1"
+                    Margin="15, 0, 15, 15"
+                    BackgroundColor="{StaticResource White90}"
+                    Padding="12">
+                
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"></RoundRectangle>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="7">
+
+                    <controls:HtmlFormsLabel HtmlText="{Binding Info.Title}"
+                                             HtmlFontFamily="MontserratBold" FontSize="16" TextColor="{StaticResource Black}"></controls:HtmlFormsLabel>
+
+                    <controls:HtmlFormsLabel HtmlText="{Binding Info.Description}"
+                                             HtmlFontFamily="MontserratRegular" FontSize="12" TextColor="{StaticResource Black}"
+                                             MaxLines="3"></controls:HtmlFormsLabel>
+
+                    <Border HorizontalOptions="Start" BackgroundColor="{StaticResource White}"
+                            Padding="7, 3">
+                        
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="4"></RoundRectangle>
+                        </Border.StrokeShape>
+                        
+                        <Label Text="{Binding Info.OwnerUsername}"
+                               FontFamily="MontserratBold" TextColor="{StaticResource Black}" FontSize="14"></Label>
+                    </Border>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"
+                               Color="{StaticResource White}"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"></ActivityIndicator>
+
+            <Border HeightRequest="44" WidthRequest="44" BackgroundColor="{StaticResource White}"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.08, 0.02, 44, 44">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22"></RoundRectangle>
+                </Border.StrokeShape>
+                
+                <Label Text="&#xe912;"
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       FontFamily="CustomIcon" FontSize="20" TextColor="{StaticResource Black}"></Label>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}"></TapGestureRecognizer>
+                </Border.GestureRecognizers>
+
+            </Border>
+
+
+
+            <Border BackgroundColor="{StaticResource FadedRed}"
+                    AbsoluteLayout.LayoutFlags="XProportional, WidthProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 10, 1, -1" Padding="10, 12" Margin="15, 0"
+                    IsVisible="{Binding IsErrorSnackbarVisible}">
+                
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"></RoundRectangle>
+                </Border.StrokeShape>
+
+                <Border.Shadow>
+                    <Shadow Offset="0, 2" Radius="8" Brush="{StaticResource Black70}"></Shadow>
+                </Border.Shadow>
+
+                <HorizontalStackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+
+                    <Label Text="{Binding ErrorSnackbarMessage}"
+                           VerticalOptions="Center"
+                           FontFamily="MontserratBold" FontSize="14"
+                           TextColor="{StaticResource White}"></Label>
+
+                </HorizontalStackLayout>
+                
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HandleSnackbarTapped"></TapGestureRecognizer>
+                </Border.GestureRecognizers>
+
+            </Border>
+
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+

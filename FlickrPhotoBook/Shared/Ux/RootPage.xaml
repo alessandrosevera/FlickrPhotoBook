@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls" 
+    ios:Page.UseSafeArea="True"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:ux="clr-namespace:FlickrPhotoBook.Ux"
+    xmlns:controls="clr-namespace:FlickrPhotoBook.Ux.Controls"
+    xmlns:state="clr-namespace:VisualStateLayout;assembly=VisualStateLayout.Maui"
+    x:Class="FlickrPhotoBook.Ux.RootPage"
+    BackgroundColor="{StaticResource White}">
+
+    <ContentPage.Content>
+
+        <Grid x:Name="GridContent" HorizontalOptions="Fill" VerticalOptions="Fill" RowSpacing="10" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <controls:MaterialEntry x:Name="SearchBox" Grid.Row="0" Placeholder="Inizia a scrivere per cercare..." Style="{StaticResource DefaultEntry}"
+                                    Margin="10, 10, 10, 0" TextChanged="HandleSearchTextChanged"></controls:MaterialEntry>
+            
+            <ActivityIndicator Grid.Row="0" Color="{StaticResource MainColor}" IsRunning="{Binding IsSearchActing}"
+                               HorizontalOptions="End" TranslationY="5" TranslationX="-25" VerticalOptions="Center"
+                               HeightRequest="30"
+                               IsVisible="{Binding IsSearchActing}"></ActivityIndicator>
+            
+            <BoxView x:Name="CollectionViewFixer" Color="Transparent" Grid.Row="1"
+                     HorizontalOptions="Fill" VerticalOptions="Fill"></BoxView>
+            
+            <VerticalStackLayout x:Name="StateLayout" Grid.Row="1" Spacing="0" 
+                                 HorizontalOptions="Fill" VerticalOptions="Fill"
+                                 state:StateLayout.AnimateStateChanges="False" 
+                                 state:StateLayout.CurrentState="{Binding CurrentState}">
+
+                <state:StateLayout.StateViews>
+                    <state:StateView StateKey="Loading">
+                        <ActivityIndicator Color="{StaticResource Black}" IsRunning="True"
+                                           HorizontalOptions="Center"></ActivityIndicator>
+                    </state:StateView>
+                    <state:StateView StateKey="Empty">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center"
+                                             Margin="30">
+                            <Label Text="La ricerca non ha prodotto risultati"
+                                   FontFamily="MontserratRegular" FontSize="14" TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center"></Label>
+                            <Label Text="Carica recenti"
+                                   FontFamily="MontserratBold" FontSize="14" TextColor="{StaticResource Black}"
+                                   TextDecorations="Underline" Padding="10"
+                                   HorizontalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FirstLoadCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+
+                            </Label>
+                        </VerticalStackLayout>
+                    </state:StateView>
+                    <state:StateView StateKey="Error">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center"
+                                             Margin="30">
+                            <Label Text="{Binding ErrorMessage}"
+                                   FontFamily="MontserratRegular" FontSize="14" TextColor="{StaticResource FadedRed}"
+                                   HorizontalTextAlignment="Center"></Label>
+
+                            <Label Text="Riprova"
+                                   FontFamily="MontserratBold" FontSize="14" TextColor="{StaticResource Black}"
+                                   TextDecorations="Underline" Padding="10"
+                                   HorizontalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RefreshCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </VerticalStackLayout>
+                    </state:StateView>
+                    <state:StateView StateKey="Success" 
+                                     HorizontalOptions="Fill" VerticalOptions="Fill">
+                        <RefreshView x:Name="PhotosRefreshView" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}"
+                                     HorizontalOptions="Fill" VerticalOptions="Fill">
+                            <CollectionView x:Name="PhotosCollectionView" ItemsSource="{Binding Photos}"
+                                            BackgroundColor="{StaticResource White}"
+                                            HorizontalOptions="Fill" VerticalOptions="Fill"
+                                            RemainingItemsThreshold="6"
+                                            RemainingItemsThresholdReachedCommand="{Binding LoadMoreDataCommand}"
+                                            Margin="10, 0" 
+                                            VerticalScrollBarVisibility="Never"
+                                            SelectionMode="None">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="5"
+                                                     VerticalItemSpacing="5" />
+                                </CollectionView.ItemsLayout>
+
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ffimageloading:CachedImage LoadingPlaceholder="loading.png"
+                                                                    ErrorPlaceholder="error.png"
+                                                                    Aspect="AspectFill"
+                                                                    WidthRequest="{Binding Source={x:Static ux:ScalableUi.PhotoItemSize}}"
+                                                                    HeightRequest="{Binding Source={x:Static ux:ScalableUi.PhotoItemSize}}"
+                                                                    Source="{Binding CompositeUrl}">
+
+                                            <ffimageloading:CachedImage.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="HandlePhotoTapped"
+                                                                      CommandParameter="{Binding .}">
+                                                </TapGestureRecognizer>
+                                            </ffimageloading:CachedImage.GestureRecognizers>
+
+                                        </ffimageloading:CachedImage>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+                        </RefreshView>
+                    </state:StateView>
+                </state:StateLayout.StateViews>
+            </VerticalStackLayout>
+        </Grid>
+
+        
+
+    </ContentPage.Content>
+
+</ContentPage>
+

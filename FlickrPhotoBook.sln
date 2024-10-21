@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickrPhotoBook", "FlickrPhotoBook\FlickrPhotoBook.csproj", "{E003C606-F153-43C4-80CC-1E35154F41E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualStateLayout.Maui", "VisualStateLayout.Maui\VisualStateLayout.Maui.csproj", "{A2C799BE-AF34-4797-BAB2-901AFA0050C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E003C606-F153-43C4-80CC-1E35154F41E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E003C606-F153-43C4-80CC-1E35154F41E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E003C606-F153-43C4-80CC-1E35154F41E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E003C606-F153-43C4-80CC-1E35154F41E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2C799BE-AF34-4797-BAB2-901AFA0050C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2C799BE-AF34-4797-BAB2-901AFA0050C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2C799BE-AF34-4797-BAB2-901AFA0050C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2C799BE-AF34-4797-BAB2-901AFA0050C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

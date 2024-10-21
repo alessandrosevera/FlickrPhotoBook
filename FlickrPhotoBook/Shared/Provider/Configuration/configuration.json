@@ -1,0 +1,5 @@
+﻿{
+  "apiRoot": "https://www.flickr.com/services/rest",
+  "apiCallTimeoutS": 5,
+  "apiKey": "4f17618afadb83b8dea64e3a93c3d39c"
+}
