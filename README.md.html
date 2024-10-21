@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>FlickrPhotoBook.md</title><style></style></head><body id="preview">
+<h1 class="code-line" data-line-start="0" data-line-end="1"><a id="FlickrPhotoBook_0"></a>FlickrPhotoBook</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="4"><strong>Descrizione:</strong><br>
+FlickrPhotoBook è un’applicazione sviluppata in .NET MAUI (.NET 8) con target iOS e Android, che permette agli utenti di cercare foto su Flickr utilizzando le Flickr API. Gli utenti possono inserire parole chiave per trovare immagini, visualizzare i risultati in un’infinite-scroll, e visualizzare una foto a schermo intero con i dettagli associati cliccando su di essa.</p>
+<hr>
+<h2 class="code-line" data-line-start="7" data-line-end="8"><a id="Requisiti_di_sistema_7"></a>Requisiti di sistema</h2>
+<ul>
+<li class="has-line-data" data-line-start="9" data-line-end="10">.NET SDK 8.0</li>
+<li class="has-line-data" data-line-start="10" data-line-end="11">JetBrains Rider 2024.1.2 (versione aggiornata per lo sviluppo MAUI)</li>
+<li class="has-line-data" data-line-start="11" data-line-end="13">Connessione a internet per accedere alle API di Flickr</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start="15" data-line-end="16"><a id="Come_eseguire_il_progetto_15"></a>Come eseguire il progetto</h2>
+<ol>
+<li class="has-line-data" data-line-start="17" data-line-end="20">
+<p class="has-line-data" data-line-start="17" data-line-end="18"><strong>Clonare il repository:</strong></p>
+<pre><code class="has-line-data" data-line-start="19" data-line-end="20" class="language-bash"> git <span class="hljs-built_in">clone</span> https://github.com/username/FlickrPhotoBook.git
+</code></pre>
+</li>
+<li class="has-line-data" data-line-start="20" data-line-end="23">
+<p class="has-line-data" data-line-start="20" data-line-end="22"><strong>Aprire il progetto in Visual Studio 2022:</strong><br>
+Aprire il file <code>FlickrPhotoBook.sln</code>.</p>
+</li>
+<li class="has-line-data" data-line-start="23" data-line-end="27">
+<p class="has-line-data" data-line-start="23" data-line-end="26"><strong>Configurare la chiave API di Flickr:</strong><br>
+L’ApiRoot e l’ApiKey per le chiamate alle API di Flickr risiedono nel file <code>configuration.json</code> (<strong>EmbeddedResource</strong>) del progetto.<br>
+Il file viene letto in fase di startup dell’app per inizializzare le chiamate alle API REST.</p>
+</li>
+<li class="has-line-data" data-line-start="27" data-line-end="31">
+<p class="has-line-data" data-line-start="27" data-line-end="30"><strong>Compilare ed eseguire:</strong><br>
+Selezionare il target desiderato (iOS o Android).<br>
+Compilare ed eseguire l’app direttamente su un dispositivo o emulatore.</p>
+</li>
+</ol>
+<hr>
+<h2 class="code-line" data-line-start="33" data-line-end="34"><a id="Librerie_utilizzate_33"></a>Librerie utilizzate</h2>
+<ol>
+<li class="has-line-data" data-line-start="35" data-line-end="38">
+<p class="has-line-data" data-line-start="35" data-line-end="37"><strong>FFImageLoading.Maui</strong><br>
+Utilizzata per ottimizzare il caricamento e la gestione delle immagini all’interno dell’applicazione.</p>
+</li>
+<li class="has-line-data" data-line-start="38" data-line-end="41">
+<p class="has-line-data" data-line-start="38" data-line-end="40"><strong>Flurl, Flurl.Http, Flurl.Http.Newtonsoft</strong><br>
+Libreria con <strong>sintassi fluent</strong>, utilizzata per gestire le <strong>chiamate REST</strong> alle Flickr API in modo semplice e con supporto nativo alla serializzazione/deserializzazione JSON.</p>
+</li>
+<li class="has-line-data" data-line-start="41" data-line-end="44">
+<p class="has-line-data" data-line-start="41" data-line-end="43"><strong>HtmlAgilityPack</strong><br>
+Usata per la realizzazione del controllo custom HtmlFormsLabel, a sua volta utilizzato nelle schermate di dettaglio delle foto per processare le descrizioni HTML, laddove necessario.</p>
+</li>
+<li class="has-line-data" data-line-start="44" data-line-end="47">
+<p class="has-line-data" data-line-start="44" data-line-end="46"><strong>Newtonsoft.Json</strong><br>
+Utilizzata per la gestione della <strong>serializzazione JSON</strong> all’interno dell’applicazione.</p>
+</li>
+<li class="has-line-data" data-line-start="47" data-line-end="50">
+<p class="has-line-data" data-line-start="47" data-line-end="49"><strong>PropertyChanged.Fody</strong><br>
+Aggiunge automaticamente il supporto per la gestione delle notifiche di proprietà (<code>INotifyPropertyChanged</code>) nel pattern MVVM.</p>
+</li>
+<li class="has-line-data" data-line-start="50" data-line-end="53">
+<p class="has-line-data" data-line-start="50" data-line-end="52"><strong>VisualStateLayout.Maui (proprietaria)</strong><br>
+Usata per gestire lo stato visivo dei layout (<code>Success</code> | <code>Error</code> | <code>Empty</code> | <code>Loading</code>), migliorando l’esperienza d’uso.</p>
+</li>
+</ol>
+<hr>
+<h2 class="code-line" data-line-start="55" data-line-end="56"><a id="Note_aggiuntive_55"></a>Note aggiuntive</h2>
+<p class="has-line-data" data-line-start="56" data-line-end="58">L’app è stata sviluppata seguendo il design pattern <strong>MVVM</strong>, per garantire una separazione pulita tra logica di business e interfaccia utente.<br>
+È stato creato un <code>handler</code> per un controllo personalizzato chiamato <code>BorderlessEntry</code>, utilizzato nella realizzazione del controllo custom <code>MaterialEntry</code> per una migliore resa grafica nella UI.</p>
+<hr>
+<h2 class="code-line" data-line-start="61" data-line-end="62"><a id="Licenza_61"></a>Licenza</h2>
+<p class="has-line-data" data-line-start="62" data-line-end="63">Questo progetto è distribuito con licenza MIT.</p>
+</body></html>
