@@ -17,7 +17,7 @@ FlickrPhotoBook è un'applicazione sviluppata in .NET MAUI (.NET 8) con target i
 
 1. **Clonare il repository:**
    ```bash 
-    git clone https://github.com/username/FlickrPhotoBook.git
+    git clone https://github.com/alessandrosevera/FlickrPhotoBook
 2. **Aprire il progetto in Visual Studio 2022:**
 Aprire il file `FlickrPhotoBook.sln`.
 
